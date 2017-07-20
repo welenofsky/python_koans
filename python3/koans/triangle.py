@@ -34,10 +34,9 @@ def triangle(a, b, c):
         return 'equilateral'
     elif (set_len == 2):
         return 'isosceles'
-    elif (set_len == 3):
-        return 'scalene'
 
-    return ''
+    # 3 sides are unique
+    return 'scalene'
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError(Exception):
