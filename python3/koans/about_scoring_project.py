@@ -33,8 +33,32 @@ from runner.koan import *
 # Your goal is to write the score method.
 
 def score(dice):
-    # You need to write this method
-    pass
+    import re
+
+    score            = 0
+    dice_str         = ''.join(str(n) for n in sorted(dice))
+    concurrent_regex = r"(\d)\1{2}"
+
+    # List of dice that occur 3 times in a row
+    concurrent     = re.findall(concurrent_regex, dice_str)
+    # List of dice that do not occur 3 times in a row
+    non_concurrent = list(re.sub(concurrent_regex, '', dice_str))
+
+    for n in concurrent:
+        n = int(n)
+        if n == 1:
+            score += 1000
+        else:
+            score += 100 * n
+
+    for n in non_concurrent:
+        n = int(n)
+        if n == 1:
+            score += 100
+        elif n == 5:
+            score += 50
+
+    return score
 
 class AboutScoringProject(Koan):
     def test_score_of_an_empty_list_is_zero(self):
